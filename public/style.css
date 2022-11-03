@@ -90,3 +90,14 @@ body{
     background-color: #ddd;
     color: black;
   }
+
+  /* content */
+  #content{
+    position: absolute;
+    top: 40%;
+    width: 100%;
+    display: flex;
+    font-size: 1.5rem;
+    justify-content: center;
+    color: #fff;
+  }

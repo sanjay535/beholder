@@ -6,6 +6,10 @@ const app = express();
 
 const server = http.createServer(app);
 const io = socketio(server); //it enable socket for server as well as for client
+app.use(function(req, res, next) {
+  // console.log('Middleware says %s %s', req);
+  next();
+})
 
 app.use('/', express.static(__dirname + '/public'));
 
@@ -13,13 +17,14 @@ let users = [];
 
 io.on('connection', (socket) => {
   console.log('connection= ', socket.id);
-  
+  users.push({socketId:socket.id})
 
   socket.on('disconnect', () => {
-    console.log('user disconnected');
+    console.log('user disconnected ',socket.id);
     users = users.filter((user) => user.socketId !== socket.id);
     console.log('users= ', users);
   });
+  console.log('users=',users)
 });
 
 server.listen(PORT, () => {
