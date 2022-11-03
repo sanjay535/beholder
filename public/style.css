@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css?family=Kirang+Haerang');
+*{
+    box-sizing: border-box;
+   
+}
+*, :after, :before {
+    box-sizing: border-box;
+}
+body{
+    margin: 0;
+    padding: 0;
+    font-family: 'Kirang Haerang', cursive;
+    /* font-family: Arial, Helvetica, sans-serif; */
+}
+
+/* logo */
+.logo{
+    color: #fff;
+    font-size:4.5rem;
+    
+    display: inline-block;
+    margin-top: -20px;
+    position: relative;
+}
+
+.logo::after {
+    content: '';
+    position: absolute;
+    left: 91px;
+    top: 56px;
+    right: 10px;
+    border: 7px solid #fff;
+    border-bottom-color: #ff3d00;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    animation: logRotation .6s linear infinite;
+}
+@keyframes logRotation {
+    from{
+        transform: rotate(0deg);
+    }
+    to{
+        transform: rotate(360deg); 
+    }
+}
+
+.bg-img {
+    /* The image used */
+    background-image: url("./img/background.jpg");
+  
+    height: 100vh;
+  
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+    /* Needed to position the navbar */
+    position: relative;
+  }
+  
+  /* Position the navbar container inside the image */
+  .container {
+    position: absolute;
+    width: 80%;
+    margin: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    
+  }
+  
+  /* The navbar */
+  .topnav {
+    overflow: hidden;
+    background-color: transparent;
+  }
+  
+  /* Navbar links */
+  .topnav a {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    font-size: 2rem;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+  
+  .topnav a:hover {
+    background-color: #ddd;
+    color: black;
+  }
