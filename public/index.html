@@ -5,16 +5,33 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Beholder</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="style.css">
     <script defer src="./js/jquery-3.6.1.min.js"></script>
-    <script defer src="./app/common.js"></script>
     <script defer src="/socket.io/socket.io.js"></script>
+    <script src="./cookies.js"></script>
     <script defer src="./client.js"></script>
 </head>
 <body>
     <header class="bg-img">
-        <div id="navbar"></div>
-        <div id="content"></div>
+        <div id="navbar">
+            <div class="container">
+                <a href="#"><span class="logo">BeH&nbsp;lder</span></a> 
+               <nav class="topnav" id="top-nav">
+                 <a id="home" class="nav-link" data-component="home" href="#home">Home</a>
+                 <a id="admin" class="nav-link" data-component="admin"  href="#admin">Admin</a>
+                 <a id="leaderboard" class="nav-link" data-component="leaderboard"  href="#leaderboard">Leaderboard</a>
+                 <a id="participant" class="nav-link" data-component="participants" href="#participants">Participants</a>
+                 <a href="javascript:void(0);" class="icon" onclick="navigation()">
+                  <i class="fa fa-bars"></i>
+                </a>
+               </nav>
+             </div>
+        </div>
+        <div id="content">
+            
+        </div>
     </header>
+    
 </body>
 </html>
