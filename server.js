@@ -3,6 +3,7 @@ const http = require('http'); //provide by node
 const socketio = require('socket.io');
 const PORT = process.env.PORT || 4444;
 const app = express();
+const questions=require('./data.js');
 
 const server = http.createServer(app);
 const io = socketio(server); //it enable socket for server as well as for client
@@ -12,8 +13,8 @@ const io = socketio(server); //it enable socket for server as well as for client
 // })
 
 app.use('/', express.static(__dirname + '/public'));
-app.use(express.urlencoded({extended:true}))
-app.use(express.json());
+// app.use(express.urlencoded({extended:true}))
+// app.use(express.json());
 
 // app.post('/user-details', (req, res)=>{
 //   console.log(req.body);
@@ -24,6 +25,7 @@ let users = [];
 
 io.on('connection', (socket) => {
   console.log('connection= ', socket.id);
+
   socket.on('user-details', data=>{
     users.push(data)
     console.log('user-details=',data)
@@ -39,14 +41,29 @@ io.on('connection', (socket) => {
     console.log('after refresh=',users);
   })
 
+  socket.on('get-question-list', data=>{
+    io.to(data.socketId).emit('question-list', {...questions})
+  })
+
+  socket.on('broadcast-question',data=>{
+    const questionList=questions.questions;
+    const question=questionList.find(item=>item.id===data.id);
+    socket.broadcast.emit('question', {question:question});
+  })
+
   socket.on('admin-cred', data=>{
-    console.log('admin data=',data);
+    // console.log('admin data=',data);
     if(data.adminPassword==="Harkishan535@" && data.adminUsername==="sanjay535"){
       io.to(data.socketId).emit('admin-verify', {isAdminLog:true})
     }else{
       io.to(data.socketId).emit('admin-verify', {isAdminLog:false})
     }
   })
+
+  socket.on('answer', data=>{
+    console.log(data);
+  })
+  
   socket.on('disconnect', () => {
     console.log('user disconnected ',socket.id);
     // users = users.filter((user) => user.socketId !== socket.id);

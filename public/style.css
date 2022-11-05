@@ -125,13 +125,27 @@ body{
   #content{
     position: absolute;
     background-color: rgba(0,0,0, 0.2);
-    padding: 10px;
     top: 40%;
     width: 100%;
     display: flex;
     font-size: 1.5rem;
     justify-content: center;
     color: #fff;
+  }
+  .admin-container{
+    width: 100%;
+    background: url('./img/background.jpg');
+  }
+  .btn{
+    font-family: 'Kirang Haerang', cursive;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  .question-list{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(0,0,0,0.5)
   }
 
   input[type=text], input[type=password] {
@@ -158,6 +172,15 @@ body{
   }
 /* End Content */
 
+/* question style */
+label{
+  display: block;
+  background-color: rgba(0,0,0,0.5);
+  border: 1px solid #fff;
+}
+
+/* end question style */
+
   @media only screen and (max-width: 700px) {
     .logo::after {
       content: '';
@@ -173,6 +196,9 @@ body{
       height: 25px;
       border-radius: 50%;
       animation: logRotation .6s linear infinite;
+    }
+    #content{
+      top:20%;
     }
   }
 
