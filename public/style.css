@@ -176,7 +176,7 @@ body{
   padding: 8px;
   
 }
-#users th {
+#users th,tr {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: center;
