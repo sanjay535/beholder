@@ -25,7 +25,7 @@ app.use('/', express.static(__dirname + '/public'));
 let users = [];
 
 io.on('connection', (socket) => {
-  console.log('connection= ', socket.id);
+  // console.log('connection= ', socket.id);
 
   socket.on('user-details', data=>{
     users.push(data)
@@ -58,6 +58,10 @@ io.on('connection', (socket) => {
     socket.broadcast.emit('question', {question:question});
   })
 
+  socket.on('remove-question', (data)=>{
+    socket.broadcast.emit('remove-question', {...data});
+  })
+
   socket.on('admin-cred', data=>{
     // console.log('admin data=',data);
     if(data.adminPassword==="Harkishan535@" && data.adminUsername==="sanjay535"){
@@ -68,23 +72,23 @@ io.on('connection', (socket) => {
   })
 
   socket.on('answer', data=>{
-    console.log(data);
+    // console.log(data);
     // console.log(answers)
     // console.log(answers.answers[data.quesNo-1])
     if(answers.answers[data.quesNo-1]===data.ansNo){
       for(let i=0;i<users.length;i++){
         if(users[i].username===data.username){
           users[i].score+=1;
-          console.log('correct answer');
+          // console.log('correct answer');
           break;
         }
       }
-      console.log(users)
+      // console.log(users)
     }
   })
 
   socket.on('users-score', data=>{
-    console.log('user-score', data);
+    // console.log('user-score', data);
     io.to(data.socketId).emit('users-score', {users:users});
   })
 

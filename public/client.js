@@ -84,12 +84,21 @@ $(document).ready(function () {
       
   });
 
+  
   $(document).on('click', '#question-list', function(e){
-    console.log(e.target.id)
-    socket.emit('broadcast-question',{id:parseInt(e.target.id)})
+    // console.log(e.target.id)
+    // remove question from participant
+    if(e.target.id.startsWith('remove')){
+      // console.log("yes")
+      socket.emit('remove-question',{socketId:socket.id});
+    }else if(e.target.id.startsWith('share')){
+      // send question to participant
+      const quesID=e.target.id.split('-')[1];
+      socket.emit('broadcast-question',{id:parseInt(quesID)})
+    }
   })
 
- 
+//  send answer of participant to server
   $(document).on('click','#myrdb',function(e){
     e.preventDefault();
     if ($(this).is(':checked')) {
@@ -100,9 +109,15 @@ $(document).ready(function () {
       const ansNo=parseInt($(this).val())
       console.log(quesNo, ansNo);
       socket.emit('answer',{quesNo:quesNo, ansNo:ansNo,username:getCookie('username')});
-      $('#content').append(`<div>Question will load here</div>`)
+      $('#content').append(`<div>Question load here</div>`)
     }
   });
+
+  // remove question
+  socket.on('remove-question',data=>{
+    $('#content').children("div:first").remove();
+    $('#content').append(`<div>Question load here</div>`);
+  })
 
  //  question came at client
   socket.on('question', data=>{
@@ -121,6 +136,7 @@ $(document).ready(function () {
     console.log(question)
   })
 
+  // check admin credential is valid or not
   socket.on('admin-verify', data=>{
     // console.log(data);
     if(data.isAdminLog){
@@ -141,12 +157,13 @@ $(document).ready(function () {
     }
   })
 
+  // display question on admin panel
   socket.on('question-list', (data)=>{
     console.log('questions=',data)
     let questionTemplate=`<ol>`;
     const {questions}=data;
     for(let i=0;i<questions.length;i++){
-      questionTemplate+=`<li>${questions[i].desc} <button id=${questions[i].id} class="btn">SHARE</button> <button id=${questions[i].id} class="btn">REMOVE</button></li>`
+      questionTemplate+=`<li>${questions[i].desc} <button id=${`share-`+questions[i].id} class="btn">SHARE</button> <button id=${`remove-`+questions[i].id} class="btn">REMOVE</button></li>`
     }
     questionTemplate+=`</ol>`
     $('#question-list').append(questionTemplate);
