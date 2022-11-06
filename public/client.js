@@ -23,7 +23,7 @@ function onHomeLoad(){
 
 $(document).ready(function () {
  onHomeLoad();
-  
+  // submit username 
   $('#userBtn').click(function (e) {
     e.preventDefault();
     const username = $('#username').val();
@@ -158,5 +158,38 @@ $(document).ready(function () {
     e.preventDefault();
     onHomeLoad();
   })
+
+  /* Leaderboard START */
+  $('#leaderboard').click(function(e){
+    socket.emit('users-score', {socketId:socket.id});
+  })
+  socket.on('users-score',(data)=>{
+    console.log('users score at client=', data);
+    const {users}=data;
+    $('#content').children("div:first").remove();
+      $('#content').append(
+    `
+    <div>
+      <table id="users">
+          <tr>
+            <th>Username</th>
+            <th>Score</th>
+          </tr>
+          ${users.map((item)=>`
+          <tr>
+            <td>${item.username}</td>
+            <td>${item.score}</td>
+          </tr>
+          `)}
+      </table>
+    </div>
+    `
+    );
+  })
+  /* Leaderboard END */
+
+  /* participants START */
+  $('#participant')
+  /* participants END */
 
 });

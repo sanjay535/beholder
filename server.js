@@ -64,7 +64,7 @@ io.on('connection', (socket) => {
   socket.on('answer', data=>{
     console.log(data);
     // console.log(answers)
-    console.log(answers.answers[data.quesNo-1])
+    // console.log(answers.answers[data.quesNo-1])
     if(answers.answers[data.quesNo-1]){
       for(let i=0;i<users.length;i++){
         if(users[i].username===data.username){
@@ -75,6 +75,11 @@ io.on('connection', (socket) => {
       }
       console.log(users)
     }
+  })
+
+  socket.on('users-score', data=>{
+    console.log('user-score', data);
+    io.to(data.socketId).emit('users-score', {users:users});
   })
 
   socket.on('disconnect', () => {

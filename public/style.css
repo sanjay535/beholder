@@ -172,6 +172,25 @@ body{
   }
 /* End Content */
 
+/* Leaderboard style */
+#users{
+  width: 100%;
+  border-collapse: collapse;
+}
+#users td, #users th {
+  border: 1px solid #ddd;
+  padding: 8px;
+  
+}
+#users th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: center;
+  background-color: #000;
+  color: white;
+}
+/* END Leaderboard */
+
 /* question style */
 label{
   display: block;
