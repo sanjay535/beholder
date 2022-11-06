@@ -99,7 +99,7 @@ $(document).ready(function () {
       const quesNo=parseInt($(this).attr('name'));
       const ansNo=parseInt($(this).val())
       console.log(quesNo, ansNo);
-      socket.emit('answer',{quesNo:quesNo, ansNo:ansNo});
+      socket.emit('answer',{quesNo:quesNo, ansNo:ansNo,username:getCookie('username')});
       $('#content').append(`<div>Question will load here</div>`)
     }
   });
@@ -113,7 +113,7 @@ $(document).ready(function () {
          <p><strong>Q${question.id}</strong>: ${question.desc}</p>
          ${question.options.map((item, index)=>{ return `
              <label class="radioButtons">
-               <input id="myrdb" type="radio" name="${question.id}" value="${index}">${item}
+               <input id="myrdb" type="radio" name="${question.id}" value="${index+1}">${item}
              </label>
          `}).join('')}  
     </div>

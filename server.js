@@ -4,6 +4,7 @@ const socketio = require('socket.io');
 const PORT = process.env.PORT || 4444;
 const app = express();
 const questions=require('./data.js');
+const answers=require('./answer.js');
 
 const server = http.createServer(app);
 const io = socketio(server); //it enable socket for server as well as for client
@@ -62,8 +63,20 @@ io.on('connection', (socket) => {
 
   socket.on('answer', data=>{
     console.log(data);
+    // console.log(answers)
+    console.log(answers.answers[data.quesNo-1])
+    if(answers.answers[data.quesNo-1]){
+      for(let i=0;i<users.length;i++){
+        if(users[i].username===data.username){
+          users[i].score+=1;
+          console.log('correct answer');
+          break;
+        }
+      }
+      console.log(users)
+    }
   })
-  
+
   socket.on('disconnect', () => {
     console.log('user disconnected ',socket.id);
     // users = users.filter((user) => user.socketId !== socket.id);
