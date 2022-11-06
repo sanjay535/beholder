@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.js",
+    "release-patch":"npm run release -- --release-as patch"
   },
   "author": "Sanjay",
   "license": "ISC",
@@ -14,6 +15,7 @@
     "socket.io": "^4.5.3"
   },
   "devDependencies": {
-    "nodemon": "^2.0.20"
+    "nodemon": "^2.0.20",
+    "standard-version": "^9.5.0"
   }
 }
