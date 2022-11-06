@@ -18,12 +18,12 @@
             <div class="container">
                 <a href="#"><span class="logo">BeH&nbsp;lder</span></a> 
                <nav class="topnav" id="top-nav">
-                 <a id="home" class="nav-link" data-component="home" href="#home">Home</a>
-                 <a id="admin" class="nav-link" data-component="admin"  href="#admin">Admin</a>
-                 <a id="leaderboard" class="nav-link" data-component="leaderboard"  href="#leaderboard">Leaderboard</a>
-                 <a id="participant" class="nav-link" data-component="participants" href="#participants">Participants</a>
+                 <a id="home" class="nav-link" href="#home">Home</a>
+                 <a id="admin" class="nav-link"   href="#admin">Admin</a>
+                 <a id="leaderboard" class="nav-link"   href="#leaderboard">Leaderboard</a>
+                 <a id="participant" class="nav-link"  href="#participants">Participants</a>
                  <a href="javascript:void(0);" class="icon" onclick="navigation()">
-                  <i class="fa fa-bars"></i>
+                  <i id="icon" class="fa fa-bars"></i>
                 </a>
                </nav>
              </div>
@@ -33,5 +33,16 @@
         </div>
     </header>
     
+    <script>
+        function navigation(){
+            var x = document.getElementById("top-nav");
+            var y=document.getElementById("icon");
+            if (x.className === "topnav") {
+                x.className += " responsive";
+            } else {
+                x.className = "topnav";
+            }
+        }
+    </script>
 </body>
 </html>

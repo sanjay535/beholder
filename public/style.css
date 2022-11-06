@@ -64,7 +64,7 @@ body{
   /* Position the navbar container inside the image */
   .container {
     position: absolute;
-    width: 95%;
+    width: 85%;
     margin: 20px 40px;
     display: flex;
     justify-content: space-between;
@@ -87,26 +87,20 @@ body{
     text-decoration: none;
   }
   
-  .topnav a:hover {
-    background-color: #ddd;
-    color: black;
-  }
   .topnav .icon {
     display: none;
   }
-  .topnav a.active{
-    background-color: #04AA6D;
-    color: white;
-  }
+
   @media screen and (max-width: 900px) {
     .topnav a {display: none;}
     .topnav a.icon {
+      color: #ff3d00;
       display: block;
       position: absolute;
       right: 0px
     }
 
-    .topnav.responsive {position: relative;}
+    .topnav.responsive {position: relative; z-index: 2; background-color: #000;}
     .topnav.responsive .icon {
       position: absolute;
       right: 0;
