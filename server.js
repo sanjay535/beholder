@@ -34,10 +34,16 @@ io.on('connection', (socket) => {
 
   socket.on('on-refresh',data=>{
     console.log('on refresh data = ',data);
+    let isUserExist=false;
     for(let i=0;i<users.length;i++){
       if(data.username===users[i].username){
         users[i].socketId=data.socketId;
+        isUserExist=true;
+        break;
       }
+    }
+    if(!isUserExist){
+      users.push({username:data.username, score:0,socketId:data.socketId});
     }
     console.log('after refresh=',users);
   })
@@ -65,7 +71,7 @@ io.on('connection', (socket) => {
     console.log(data);
     // console.log(answers)
     // console.log(answers.answers[data.quesNo-1])
-    if(answers.answers[data.quesNo-1]){
+    if(answers.answers[data.quesNo-1]===data.ansNo){
       for(let i=0;i<users.length;i++){
         if(users[i].username===data.username){
           users[i].score+=1;

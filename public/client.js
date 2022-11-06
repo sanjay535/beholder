@@ -188,8 +188,4 @@ $(document).ready(function () {
   })
   /* Leaderboard END */
 
-  /* participants START */
-  $('#participant')
-  /* participants END */
-
 });
