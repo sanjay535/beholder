@@ -34,17 +34,17 @@ io.on('connection', (socket) => {
 
   socket.on('on-refresh',data=>{
     console.log('on refresh data = ',data);
-    // let isUserExist=false;
+    let isUserExist=false;
     for(let i=0;i<users.length;i++){
       if(data.username===users[i].username){
         users[i].socketId=data.socketId;
-        // isUserExist=true;
+        isUserExist=true;
         break;
       }
     }
-    // if(!isUserExist){
-    //   users.push({username:data.username, score:0,socketId:data.socketId});
-    // }
+    if(!isUserExist){
+      users.push({username:data.username, score:0,socketId:data.socketId});
+    }
     // console.log('after refresh=',users);
   })
 

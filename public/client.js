@@ -15,7 +15,7 @@ function onHomeLoad(){
     $('#content').append(`
         <div id="user-form" class="user-form">
         <input id="username" name="username" type="text" placeholder="Enter Name"/>
-        <button id="userBtn" class="userBtn" type="button">SUBMIT</button>
+        <button id="userBtn" class="userBtn" type="submit">SUBMIT</button>
         </div>
     `)
   }
@@ -197,7 +197,7 @@ $(document).ready(function () {
             <td>${item.username}</td>
             <td>${item.score}</td>
           </tr>
-          `)}
+          `).join('')}
       </table>
     </div>
     `
