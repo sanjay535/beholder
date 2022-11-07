@@ -1,7 +1,11 @@
 const socket = io();
 
 socket.on('connect', () => {
-  socket.emit('on-refresh',{socketId:socket.id, username:getCookie('username')})
+  // send cookie username if it is available
+  if(checkCookie('username')){
+    console.log('line 5=',getCookie('username'));
+    socket.emit('on-refresh',{socketId:socket.id, username:getCookie('username')})
+  }
 });
 
 
@@ -15,7 +19,9 @@ function onHomeLoad(){
     $('#content').append(`
         <div id="user-form" class="user-form">
         <input id="username" name="username" type="text" placeholder="Enter Name"/>
+        <div id="err-msg-user" style="text-align:center; color:red;display:none">Enter valid username</div>
         <button id="userBtn" class="userBtn" type="submit">SUBMIT</button>
+        
         </div>
     `)
   }
@@ -24,18 +30,30 @@ function onHomeLoad(){
 $(document).ready(function () {
  onHomeLoad();
   // submit username 
-  $('#userBtn').click(function (e) {
+  $(document).on('click', '#userBtn', function(e){
     e.preventDefault();
     const username = $('#username').val();
-    setCookie("username", username,30);
-    socket.emit('user-details', {
-      username: username,
-      score: 0,
-      socketId: socket.id,
-    });
-    $('#content').children("div:first").remove();
-    $('#content').append("<div>Question load here</div>")
+    if(username.length===0){
+      console.log("empty username")
+      // $('#content').children("div:first").remove();
+      $('#err-msg-user').show()
+      setTimeout(function(){$('#err-msg-user').hide();},1000)
+    }else{
+      setCookie("username", username,30);
+      socket.emit('user-details', {
+        username: username,
+        score: 0,
+        socketId: socket.id,
+      });
+      $('#content').children("div:first").remove();
+      $('#content').append("<div>Question load here</div>")
+    }
   });
+
+  // $('#userBtn').click(function (e) {
+    
+    
+  // });
 
 
   /* ADMIN Functionality */

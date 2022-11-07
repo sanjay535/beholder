@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "release-patch": "standard-version --release-as patch -t \"\" -a"
+    "release-patch": "standard-version --release-as patch -t \"\" -a",
+    "release-minor": "standard-version --release-as minor -t \"\" -a"
   },
   "author": "Sanjay",
   "license": "ISC",
