@@ -50,12 +50,6 @@ $(document).ready(function () {
     }
   });
 
-  // $('#userBtn').click(function (e) {
-    
-    
-  // });
-
-
   /* ADMIN Functionality */
   $(document).on('click', '#adminLoginBtn', function(e){
     e.preventDefault();
@@ -119,16 +113,25 @@ $(document).ready(function () {
 //  send answer of participant to server
   $(document).on('click','#myrdb',function(e){
     e.preventDefault();
-    if ($(this).is(':checked')) {
-      // alert($(this).val());
+    const isAnswerSubmitCookie=getCookie('isAnswerSubmit');
+    console.log('isAnswerSubmitCookie=', isAnswerSubmitCookie, typeof parseInt(isAnswerSubmitCookie));
+    if(parseInt(isAnswerSubmitCookie)===0){
+      setCookie("isAnswerSubmit","1",1);
+      if ($(this).is(':checked')) {
+        // alert($(this).val());
+        $('#content').children("div:first").remove();
+        
+        const quesNo=parseInt($(this).attr('name'));
+        const ansNo=parseInt($(this).val())
+        console.log(quesNo, ansNo);
+        socket.emit('answer',{quesNo:quesNo, ansNo:ansNo,username:getCookie('username')});
+        $('#content').append(`<div>Question load here</div>`)
+      }
+    }else{
       $('#content').children("div:first").remove();
-      
-      const quesNo=parseInt($(this).attr('name'));
-      const ansNo=parseInt($(this).val())
-      console.log(quesNo, ansNo);
-      socket.emit('answer',{quesNo:quesNo, ansNo:ansNo,username:getCookie('username')});
-      $('#content').append(`<div>Question load here</div>`)
+      $('#content').append(`<div>You already submitted answer of this question</div>`)
     }
+   
   });
 
   // remove question
@@ -141,6 +144,7 @@ $(document).ready(function () {
   socket.on('question', data=>{
     const {question}=data;
     $('#content').children("div:first").remove();
+    setCookie("isAnswerSubmit","0",1);
     $('#content').append(`
     <div class="question">
          <p><strong>Q${question.id}</strong>: ${question.desc}</p>
