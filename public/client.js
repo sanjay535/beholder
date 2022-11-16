@@ -142,6 +142,13 @@ $(document).ready(function () {
 
  //  question came at client
   socket.on('question', data=>{
+    // play music when question came
+    const audio = new Audio(
+      "./img/mixkit-player-jumping-in-a-video-game-2043.wav"
+    );
+  
+    audio.play();
+
     const {question}=data;
     $('#content').children("div:first").remove();
     setCookie("isAnswerSubmit","0",1);
