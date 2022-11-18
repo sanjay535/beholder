@@ -212,7 +212,17 @@ $(document).ready(function () {
   socket.on('users-score',(data)=>{
     console.log('users score at client=', data);
     const {users}=data;
-    $('#content').children("div:first").remove();
+    if(users.length===0){
+      $('#content').children("div:first").remove();
+      $('#content').append(
+    `
+    <div>
+      No user is found
+    </div>
+    `
+    );
+    }else{
+      $('#content').children("div:first").remove();
       $('#content').append(
     `
     <div>
@@ -231,6 +241,8 @@ $(document).ready(function () {
     </div>
     `
     );
+    }
+    
   })
   /* Leaderboard END */
 

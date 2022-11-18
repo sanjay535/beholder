@@ -64,7 +64,7 @@ io.on('connection', (socket) => {
 
   socket.on('admin-cred', data=>{
     // console.log('admin data=',data);
-    if(data.adminPassword==="Harkishan535@" && data.adminUsername==="sanjay535"){
+    if((data.adminPassword==="Harkishan535@" && data.adminUsername==="sanjay535")||(data.adminPassword==="ena123" && data.adminUsername==="ena@123")){
       io.to(data.socketId).emit('admin-verify', {isAdminLog:true})
     }else{
       io.to(data.socketId).emit('admin-verify', {isAdminLog:false})
